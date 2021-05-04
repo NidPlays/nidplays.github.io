@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: nidish.social
+Token: f01f56a7cb9c228b75bcf3a8221b8b853738ab20b185e8f0254cd2fbcfaf55bb
