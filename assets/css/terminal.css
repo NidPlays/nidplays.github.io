@@ -1,0 +1,206 @@
+:root {
+    --bg-color: #000000;
+    --text-color: #00ff00; /* Classic terminal green */
+    --text-muted: #00aa00;
+    --accent-color: #00ff00;
+    --navbar-bg: #000000;
+    --border-color: #00ff00;
+    --card-bg: #050505;
+    --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
+    --prompt-color: #00ff00;
+    --btn-hover-bg: #00ff00;
+    --btn-hover-text: #000000;
+}
+
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --text-muted: #666666;
+    --accent-color: #000000;
+    --navbar-bg: #f8f9fa;
+    --border-color: #333333;
+    --card-bg: #f8f9fa;
+    --prompt-color: #0000bb;
+    --btn-hover-bg: #333333;
+    --btn-hover-text: #ffffff;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-mono);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-mono);
+    color: var(--text-color);
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--text-color) !important;
+    font-family: var(--font-mono);
+}
+
+.nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
+    text-decoration-thickness: 2px;
+}
+
+.nav-link:hover {
+    color: var(--accent-color) !important;
+    text-decoration: underline;
+}
+
+/* Terminal Prompt */
+.term-prompt::before {
+    content: "nidish@portfolio:~$ ";
+    color: var(--prompt-color);
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn-outline-primary, .btn-primary {
+    color: var(--accent-color);
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+    border-radius: 0;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+}
+
+.btn-outline-primary:hover, .btn-primary:hover {
+    background-color: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+    border-color: var(--accent-color);
+}
+
+/* Cards & Sections */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0;
+}
+
+.card-header {
+    border-bottom: 1px solid var(--border-color);
+    background-color: transparent;
+}
+
+.portfolio-block {
+    background-color: transparent;
+}
+
+.gradient {
+    background: transparent !important;
+}
+
+/* Forms */
+.form-control {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    font-family: var(--font-mono);
+}
+
+.form-control:focus {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    box-shadow: none;
+    outline: 1px solid var(--accent-color);
+}
+
+/* Images & Avatar */
+.avatar {
+    border: 2px solid var(--border-color);
+    border-radius: 0 !important; /* Blocky instead of circle */
+    filter: grayscale(100%);
+}
+.avatar:hover {
+    filter: none;
+}
+
+.img-fluid {
+    filter: grayscale(80%);
+    border: 1px solid var(--border-color);
+    transition: filter 0.3s;
+}
+
+.img-fluid:hover {
+    filter: grayscale(0%);
+}
+
+/* Utilities */
+.border-bottom {
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.border-0 {
+    border: 1px solid var(--border-color) !important;
+}
+
+.bg-white {
+    background-color: var(--navbar-bg) !important;
+}
+
+/* Custom Selection */
+::selection {
+    background: var(--accent-color);
+    color: var(--bg-color);
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.25rem 0.75rem;
+    font-family: var(--font-mono);
+}
+#theme-toggle:hover {
+    background: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+}
+
+/* Typing cursor */
+.blinking-cursor {
+    animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Footer overrides */
+.page-footer {
+    background-color: var(--bg-color) !important;
+    border-top: 1px dashed var(--border-color);
+}
+.page-footer .icon {
+    color: var(--text-color);
+}
+
+@keyframes blinkingText { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.blinking { animation: blinkingText 1s step-end infinite; }
+/* Typography fixes */
+.cd-headline { font-family: var(--font-mono); }
+.cd-headline b { font-family: var(--font-mono); }
+.text-muted { color: var(--text-muted) !important; }
+.card-title { color: var(--text-color); font-family: var(--font-mono); }
+.card-text { color: var(--text-color); font-family: var(--font-mono); }
+.special-skill-item .icon { color: var(--accent-color) !important; }

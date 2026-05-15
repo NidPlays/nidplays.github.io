@@ -12,17 +12,20 @@
     <link rel="stylesheet" href="assets/css/styles.min.css?h=09e8f45a4b49d11fea15e5a38ec1fdc3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
 <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/terminal.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-        <div class="container"><a class="navbar-brand logo" href="#">Nidish - Portfolio</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top portfolio-navbar gradient">
+        <div class="container"><a class="navbar-brand logo term-prompt" href="#"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="projects-grid-cards.html">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
+                <button id="theme-toggle" class="ms-3 mt-2 mt-lg-0">[Light Mode]</button>
             </div>
         </div>
     </nav>
@@ -33,16 +36,16 @@
                 <div class="about-me">
                     <div class="text-nowrap d-flex justify-content-center align-items-center animated-text noSelect" style="background: rgba(255,255,255,0);border-style: none;margin-top: 16px;width: 50%;margin-right: auto;margin-left: auto;"><div class="caption v-middle text-center">
     <h1 class="cd-headline clip">
-        <span class="blc">Hello! I am </span>
+        <span class="blc term-prompt"> </span>
         <span class="cd-words-wrapper">
-          <b class="is-visible">Nidish.</b>
+          <b class="is-visible">nidish</b>
           <b>a Developer.</b>
           <b>a Designer.</b>
           <b>a Thinker.</b>
         </span>
         <span class="blinking">|</span>
     </h1>
-</div></div><a class="btn btn-outline-primary" role="button" href="#skills">Learn More</a>
+</div></div><a class="btn btn-outline-primary" role="button" href="#skills">./learn-more.sh</a>
                 </div>
             </div>
         </section>
@@ -58,7 +61,7 @@
         <section class="portfolio-block call-to-action border-bottom">
             <div class="container">
                 <div class="d-flex justify-content-center align-items-center content">
-                    <h3>Like what you see?</h3><a class="btn btn-outline-primary btn-lg" role="button" href="contact.html">Contact Me</a>
+                    <h3>Like what you see?</h3><a class="btn btn-outline-primary btn-lg" role="button" href="contact.html">./contact.sh</a>
                 </div>
             </div>
         </section>
@@ -104,7 +107,7 @@
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-5 offset-lg-1 text">
                     <h3>Projects</h3>
-                    <p>Recent Projects I am working on.</p><a class="btn btn-outline-primary btn-lg disabled" role="button" href="projects-grid-cards.html" style="background: var(--bs-white);color: var(--bs-primary);">Projects</a>
+                    <p>Recent Projects I am working on.</p><a class="btn btn-outline-primary btn-lg disabled" role="button" href="projects-grid-cards.html">./projects.sh</a>
                 </div>
                 <div class="col-md-12 col-lg-5">
                     <div class="portfolio-laptop-mockup">
@@ -137,6 +140,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="https://s.pageclip.co/v1/pageclip.js"></script>
     <script src="assets/js/script.min.js?h=43309f256247dac4f8cf35803579dd24"></script>
+    <script src="assets/js/theme.js"></script>
 </body>
 
 </html>

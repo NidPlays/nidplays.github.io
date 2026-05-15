@@ -12,11 +12,13 @@
     <link rel="stylesheet" href="assets/css/styles.min.css?h=09e8f45a4b49d11fea15e5a38ec1fdc3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
     <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/terminal.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-        <div class="container"><a class="navbar-brand logo" href="#">Nidish - Portfolio</a><button
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top portfolio-navbar gradient">
+        <div class="container"><a class="navbar-brand logo term-prompt" href="#"></a><button
                 data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span
                     class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -25,6 +27,7 @@
                     <li class="nav-item"><a class="nav-link disabled" href="projects-grid-cards.html">Projects</a></li>
                     <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
                 </ul>
+                <button id="theme-toggle" class="ms-3 mt-2 mt-lg-0">[Light Mode]</button>
             </div>
         </div>
     </nav>
@@ -51,7 +54,7 @@
                             class="form-control item" id="message" required="" name="message"></textarea></div>
                     <div class="form-group mb-3">
                         <button class="btn btn-primary btn-lg d-block w-100 pageclip-form__submit"
-                            type="submit"><span>Submit Form</span></button>
+                            type="submit"><span>./submit.sh</span></button>
                     </div>
                     <input type="hidden" name="_next" value="https://portfolio.nidish.xyz/">
                     <input type="text" name="_honey" style="display:none">
@@ -84,6 +87,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="https://s.pageclip.co/v1/pageclip.js"></script>
     <script src="assets/js/script.min.js?h=43309f256247dac4f8cf35803579dd24"></script>
+    <script src="assets/js/theme.js"></script>
 </body>
 
 </html>
