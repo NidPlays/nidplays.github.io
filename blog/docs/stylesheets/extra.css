@@ -1,0 +1,123 @@
+/* ==========================================================================
+   nidish@blog — dark terminal / blue overrides for the slate scheme
+   Matches the portfolio palette (portfolio/src/index.css).
+   ========================================================================== */
+
+:root {
+  --nid-bg: #060b14;
+  --nid-panel: #0b1322;
+  --nid-panel-2: #0e1728;
+  --nid-border: #1c2a42;
+  --nid-accent: #58a6ff;
+  --nid-accent-strong: #2f81f7;
+  --nid-glow: rgba(88, 166, 255, 0.18);
+  --nid-text: #dbe6f5;
+  --nid-dim: #7d8fa9;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 218;
+
+  /* page */
+  --md-default-bg-color: var(--nid-bg);
+  --md-default-fg-color: var(--nid-text);
+  --md-default-fg-color--light: var(--nid-dim);
+  --md-default-fg-color--lighter: rgba(125, 143, 169, 0.5);
+  --md-default-fg-color--lightest: rgba(125, 143, 169, 0.2);
+
+  /* header + primary */
+  --md-primary-fg-color: var(--nid-bg);
+  --md-primary-fg-color--light: var(--nid-panel);
+  --md-primary-fg-color--dark: var(--nid-bg);
+  --md-primary-bg-color: var(--nid-text);
+  --md-primary-bg-color--light: var(--nid-dim);
+
+  /* accent + links */
+  --md-accent-fg-color: var(--nid-accent);
+  --md-accent-fg-color--transparent: var(--nid-glow);
+  --md-typeset-a-color: var(--nid-accent);
+
+  /* code */
+  --md-code-bg-color: var(--nid-panel);
+  --md-code-fg-color: var(--nid-text);
+
+  /* footer */
+  --md-footer-bg-color: var(--nid-panel);
+  --md-footer-bg-color--dark: var(--nid-bg);
+}
+
+/* header: thin blue line under it, like the portfolio nav */
+.md-header {
+  border-bottom: 1px solid var(--nid-border);
+  box-shadow: none;
+}
+
+/* site title styled as a prompt with a blinking cursor */
+.md-header__topic:first-child {
+  font-weight: 700;
+}
+
+.md-header__topic:first-child::after {
+  content: " ";
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  background: var(--nid-accent);
+  animation: nid-blink 1.1s steps(1) infinite;
+}
+
+@keyframes nid-blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-header__topic:first-child::after { animation: none; }
+}
+
+/* headings: monospace prompt marker */
+.md-typeset h1,
+.md-typeset h2 {
+  font-weight: 700;
+  color: var(--nid-text);
+}
+
+.md-typeset h2::before {
+  content: "# ";
+  color: var(--nid-accent);
+}
+
+/* code blocks: panel look with subtle border */
+.md-typeset pre > code {
+  border: 1px solid var(--nid-border);
+  border-radius: 8px;
+}
+
+/* inline code: blue tint */
+.md-typeset code {
+  border-radius: 4px;
+}
+
+/* blockquotes: blue bar */
+.md-typeset blockquote {
+  border-left: 2px solid var(--nid-accent);
+  color: var(--nid-dim);
+}
+
+/* buttons + interactive highlights follow the accent */
+.md-typeset .md-button--primary {
+  background-color: var(--nid-accent-strong);
+  border-color: var(--nid-accent-strong);
+}
+
+/* sidebar: dim inactive, blue active */
+.md-nav__item .md-nav__link--active,
+.md-nav__item .md-nav__link--active code {
+  color: var(--nid-accent);
+}
+
+/* search field on dark header */
+.md-search__form {
+  background-color: var(--nid-panel-2);
+}
