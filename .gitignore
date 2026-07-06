@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Zensical build output & cache
+blog/site/
+blog/.cache/

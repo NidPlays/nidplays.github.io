@@ -1,0 +1,22 @@
+# Netlify configuration — builds the same dist/ as the GitHub Pages workflow.
+#   /       -> portfolio (React + Vite)
+#   /blog/  -> blog (Zensical)
+
+[build]
+  command = "bash build.sh"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PYTHON_VERSION = "3.13"
+
+# Old portfolio URLs from the previous site
+[[redirects]]
+  from = "/contact.html"
+  to = "/#contact"
+  status = 301
+
+[[redirects]]
+  from = "/projects-grid-cards.html"
+  to = "/#projects"
+  status = 301
