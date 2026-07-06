@@ -418,6 +418,130 @@ h1.term-output {
 }
 
 /* ==========================================================================
+   Resume page
+   ========================================================================== */
+
+.resume .section { padding-block: clamp(1.6rem, 4vh, 2.6rem); }
+
+.resume-head { padding-top: clamp(2.2rem, 6vh, 3.6rem); }
+
+.resume-name {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.resume-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  list-style: none;
+  margin-bottom: 1rem;
+  font-size: 0.88rem;
+}
+
+.resume-links li,
+.resume-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.resume-profile { color: var(--text-dim); }
+
+.xp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.xp h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.xp h3 svg { color: var(--accent); flex-shrink: 0; }
+
+.xp-meta {
+  font-size: 0.82rem;
+  margin: 0.2rem 0 0.7rem;
+}
+
+.xp-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+.xp-points li {
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.xp-points li::before {
+  content: "▸";
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+}
+
+.resume-tags { margin-top: 0; }
+
+.resume-tags li { font-size: 0.8rem; padding: 0.2rem 0.65rem; }
+
+.resume-certs { margin-top: 1rem; font-size: 0.85rem; }
+
+.btn-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 0.88rem;
+  padding: 0.3rem 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-print:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+@media print {
+  :root {
+    --bg: #ffffff;
+    --bg-panel: #ffffff;
+    --bg-panel-2: #ffffff;
+    --border: #c8d2e0;
+    --accent: #1f6feb;
+    --accent-strong: #1f6feb;
+    --accent-glow: transparent;
+    --text: #111827;
+    --text-dim: #4b5563;
+  }
+
+  .bg-grid,
+  .nav,
+  .footer,
+  .cursor { display: none; }
+
+  .panel { break-inside: avoid; }
+
+  body { font-size: 12px; }
+}
+
+/* ==========================================================================
    Reveal on scroll
    ========================================================================== */
 
@@ -489,4 +613,20 @@ h1.term-output {
   }
 
   .btn-blog:hover { background: none; color: var(--accent) !important; }
+
+  /* the resume page has no menu toggle — keep its links inline */
+  .nav-links.resume-nav {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9rem;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .nav-links.resume-nav li { width: auto; }
+
+  .nav-links.resume-nav a { padding: 0; }
 }

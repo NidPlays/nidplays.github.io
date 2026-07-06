@@ -1,7 +1,13 @@
 import { BookOpen, FolderGit2 } from 'lucide-react'
 import { useTypewriter } from '../hooks'
 
-const roles = ['a Developer.', 'a Designer.', 'a Photographer.', 'a Thinker.']
+const roles = [
+  'a Software Engineer.',
+  'a Data Engineer.',
+  'building Gen AI agents.',
+  'a Photographer.',
+  'a Thinker.',
+]
 
 export default function Hero() {
   const typed = useTypewriter(roles)

@@ -22,6 +22,7 @@ nav = [
     { "hello, world" = "posts/hello-world.md" },
   ] },
   { "← portfolio" = "/" },
+  { "resume" = "/resume/" },
 ]
 
 extra_css = ["stylesheets/extra.css"]

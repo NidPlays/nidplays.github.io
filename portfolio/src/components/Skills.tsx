@@ -1,18 +1,18 @@
-import { Camera, CodeXml, Palette } from 'lucide-react'
+import { Bot, Camera, DatabaseZap } from 'lucide-react'
 import Section from './Section'
 
 const skills = [
   {
-    icon: CodeXml,
-    title: 'web development',
-    text: 'Building fast, responsive sites and apps — from static pages to full front-end experiences.',
-    tags: ['React', 'TypeScript', 'Vite', 'Python'],
+    icon: Bot,
+    title: 'gen ai & agents',
+    text: 'Agentic systems, RAG pipelines and LLM tooling — from internal SDKs to enterprise chat.',
+    tags: ['Python', 'RAG', 'MCP', 'A2A', 'Prompt Engineering'],
   },
   {
-    icon: Palette,
-    title: 'design',
-    text: 'Interfaces, layouts and visual identities with an eye for typography and color.',
-    tags: ['UI/UX', 'Figma', 'Branding'],
+    icon: DatabaseZap,
+    title: 'data engineering',
+    text: 'ETL pipelines, warehousing and infrastructure as code on the cloud.',
+    tags: ['SQL', 'Redshift', 'AWS Glue', 'Airflow', 'Terraform'],
   },
   {
     icon: Camera,
