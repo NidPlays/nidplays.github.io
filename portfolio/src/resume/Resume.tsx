@@ -1,4 +1,16 @@
-import { ArrowLeft, Award, BookOpen, Briefcase, GraduationCap, Mail, MapPin, Printer } from 'lucide-react'
+import { useState } from 'react'
+import {
+  ArrowLeft,
+  Award,
+  BookOpen,
+  Briefcase,
+  GraduationCap,
+  Mail,
+  MapPin,
+  Menu,
+  Printer,
+  X,
+} from 'lucide-react'
 import { SiGithub } from '@icons-pack/react-simple-icons'
 import { LinkedinIcon } from '../components/BrandIcons'
 
@@ -57,37 +69,43 @@ const experience = [
 ]
 
 export default function Resume() {
+  const [open, setOpen] = useState(false)
+
   return (
     <>
       <div className="bg-grid" aria-hidden="true" />
       <header className="nav">
         <div className="container nav-inner">
+          <button
+            className="nav-toggle"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
           <a className="brand" href="/">
             nidish<span className="dim">@resume</span>
             <span className="accent">:~$</span>
           </a>
           <nav aria-label="Main navigation">
-            <ul className="nav-links resume-nav">
+            <ul
+              className={`nav-links${open ? ' open' : ''}`}
+              onClick={() => setOpen(false)}
+            >
               <li>
-                <a href="/" aria-label="Back to portfolio">
-                  <ArrowLeft size={14} aria-hidden="true" />
-                  <span className="nav-label">portfolio</span>
+                <a href="/">
+                  <ArrowLeft size={14} aria-hidden="true" /> portfolio
                 </a>
               </li>
               <li>
-                <a href="/blog/" aria-label="Blog">
-                  <BookOpen size={14} aria-hidden="true" />
-                  <span className="nav-label">blog</span>
+                <a href="/blog/">
+                  <BookOpen size={14} aria-hidden="true" /> blog
                 </a>
               </li>
               <li>
-                <button
-                  className="btn-print"
-                  onClick={() => window.print()}
-                  aria-label="Print resume"
-                >
-                  <Printer size={14} aria-hidden="true" />
-                  <span className="nav-label">print</span>
+                <button className="btn-print" onClick={() => window.print()}>
+                  <Printer size={14} aria-hidden="true" /> print
                 </button>
               </li>
             </ul>

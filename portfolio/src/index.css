@@ -100,9 +100,12 @@ a:hover {
 .nav-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding-block: 0.9rem;
   gap: 1rem;
+}
+
+.nav-inner nav {
+  margin-left: auto;
 }
 
 .brand {
@@ -614,31 +617,14 @@ h1.term-output {
 
   .btn-blog:hover { background: none; color: var(--accent) !important; }
 
-  /* the resume page has no menu toggle — keep its links inline */
-  .nav-links.resume-nav {
+  /* the print action becomes a plain menu row inside the dropdown */
+  .nav-links .btn-print {
     display: flex;
-    position: static;
-    flex-direction: row;
     align-items: center;
-    gap: 0.9rem;
-    background: none;
+    gap: 0.35rem;
+    width: 100%;
     border: none;
-    padding: 0;
-  }
-
-  .nav-links.resume-nav li { width: auto; }
-
-  .nav-links.resume-nav a { padding: 0; }
-}
-
-/* icons only in the resume nav on narrow screens */
-@media (max-width: 520px) {
-  .resume-nav .nav-label { display: none; }
-
-  .resume-nav a,
-  .resume-nav .btn-print {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.4rem 0.55rem;
+    padding: 0.7rem 0;
+    text-align: left;
   }
 }
