@@ -630,3 +630,15 @@ h1.term-output {
 
   .nav-links.resume-nav a { padding: 0; }
 }
+
+/* icons only in the resume nav on narrow screens */
+@media (max-width: 520px) {
+  .resume-nav .nav-label { display: none; }
+
+  .resume-nav a,
+  .resume-nav .btn-print {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 0.55rem;
+  }
+}

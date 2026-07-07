@@ -69,18 +69,25 @@ export default function Resume() {
           <nav aria-label="Main navigation">
             <ul className="nav-links resume-nav">
               <li>
-                <a href="/">
-                  <ArrowLeft size={14} aria-hidden="true" /> portfolio
+                <a href="/" aria-label="Back to portfolio">
+                  <ArrowLeft size={14} aria-hidden="true" />
+                  <span className="nav-label">portfolio</span>
                 </a>
               </li>
               <li>
-                <a href="/blog/">
-                  <BookOpen size={14} aria-hidden="true" /> blog
+                <a href="/blog/" aria-label="Blog">
+                  <BookOpen size={14} aria-hidden="true" />
+                  <span className="nav-label">blog</span>
                 </a>
               </li>
               <li>
-                <button className="btn-print" onClick={() => window.print()}>
-                  <Printer size={14} aria-hidden="true" /> print
+                <button
+                  className="btn-print"
+                  onClick={() => window.print()}
+                  aria-label="Print resume"
+                >
+                  <Printer size={14} aria-hidden="true" />
+                  <span className="nav-label">print</span>
                 </button>
               </li>
             </ul>
