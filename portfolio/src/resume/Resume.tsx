@@ -65,9 +65,6 @@ export default function Resume() {
           <a className="brand" href="/">
             nidish<span className="dim">@resume</span>
             <span className="accent">:~$</span>
-            <span className="cursor" aria-hidden="true">
-              &nbsp;
-            </span>
           </a>
           <nav aria-label="Main navigation">
             <ul className="nav-links resume-nav">

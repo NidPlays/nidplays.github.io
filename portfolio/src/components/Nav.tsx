@@ -19,9 +19,6 @@ export default function Nav() {
         <a className="brand" href="#top">
           nidish<span className="dim">@portfolio</span>
           <span className="accent">:~$</span>
-          <span className="cursor" aria-hidden="true">
-            &nbsp;
-          </span>
         </a>
         <nav aria-label="Main navigation">
           <button
