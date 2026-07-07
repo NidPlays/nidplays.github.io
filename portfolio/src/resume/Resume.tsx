@@ -179,31 +179,36 @@ export default function Resume() {
           </div>
         </section>
 
-        {/* ------------------------- awards & education ------------------------ */}
+        {/* ------------------------------ awards ------------------------------ */}
         <section className="section">
           <h2 className="cmd">
-            <span className="prompt">~$</span> cat awards.txt education.txt
+            <span className="prompt">~$</span> cat awards.txt
           </h2>
-          <div className="grid two">
-            <div className="panel xp">
-              <h3>
-                <Award size={16} aria-hidden="true" /> Rockstar Rookie Award, Q1 2024
-              </h3>
-              <p className="xp-meta">
-                <span className="accent">Yara International</span>
-                <span className="dim"> · 2024/05</span>
-              </p>
-            </div>
-            <div className="panel xp">
-              <h3>
-                <GraduationCap size={16} aria-hidden="true" /> Information Science &
-                Engineering
-              </h3>
-              <p className="xp-meta">
-                <span className="accent">RNS Institute of Technology, VTU</span>
-                <span className="dim"> · 2019/08 – 2023/07 · Bengaluru, India</span>
-              </p>
-            </div>
+          <div className="panel xp">
+            <h3>
+              <Award size={16} aria-hidden="true" /> Rockstar Rookie Award, Q1 2024
+            </h3>
+            <p className="xp-meta">
+              <span className="accent">Yara International</span>
+              <span className="dim"> · 2024/05</span>
+            </p>
+          </div>
+        </section>
+
+        {/* ----------------------------- education ----------------------------- */}
+        <section className="section">
+          <h2 className="cmd">
+            <span className="prompt">~$</span> cat education.txt
+          </h2>
+          <div className="panel xp">
+            <h3>
+              <GraduationCap size={16} aria-hidden="true" /> Information Science &
+              Engineering
+            </h3>
+            <p className="xp-meta">
+              <span className="accent">RNS Institute of Technology, VTU</span>
+              <span className="dim"> · 2019/08 – 2023/07 · Bengaluru, India</span>
+            </p>
           </div>
           <p className="dim resume-certs">
             # certificates:{' '}
