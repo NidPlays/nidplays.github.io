@@ -16,22 +16,19 @@ export default function Nav() {
   return (
     <header className="nav">
       <div className="container nav-inner">
+        <button
+          className="nav-toggle"
+          aria-label="Toggle menu"
+          aria-expanded={open}
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X size={18} /> : <Menu size={18} />}
+        </button>
         <a className="brand" href="#top">
           nidish<span className="dim">@portfolio</span>
           <span className="accent">:~$</span>
-          <span className="cursor" aria-hidden="true">
-            &nbsp;
-          </span>
         </a>
         <nav aria-label="Main navigation">
-          <button
-            className="nav-toggle"
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={18} /> : <Menu size={18} />}
-          </button>
           <ul className={`nav-links${open ? ' open' : ''}`} onClick={() => setOpen(false)}>
             {links.map((link) => (
               <li key={link.href}>

@@ -1,4 +1,16 @@
-import { ArrowLeft, Award, BookOpen, Briefcase, GraduationCap, Mail, MapPin, Printer } from 'lucide-react'
+import { useState } from 'react'
+import {
+  ArrowLeft,
+  Award,
+  BookOpen,
+  Briefcase,
+  GraduationCap,
+  Mail,
+  MapPin,
+  Menu,
+  Printer,
+  X,
+} from 'lucide-react'
 import { SiGithub } from '@icons-pack/react-simple-icons'
 import { LinkedinIcon } from '../components/BrandIcons'
 
@@ -57,20 +69,30 @@ const experience = [
 ]
 
 export default function Resume() {
+  const [open, setOpen] = useState(false)
+
   return (
     <>
       <div className="bg-grid" aria-hidden="true" />
       <header className="nav">
         <div className="container nav-inner">
+          <button
+            className="nav-toggle"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
           <a className="brand" href="/">
             nidish<span className="dim">@resume</span>
             <span className="accent">:~$</span>
-            <span className="cursor" aria-hidden="true">
-              &nbsp;
-            </span>
           </a>
           <nav aria-label="Main navigation">
-            <ul className="nav-links resume-nav">
+            <ul
+              className={`nav-links${open ? ' open' : ''}`}
+              onClick={() => setOpen(false)}
+            >
               <li>
                 <a href="/">
                   <ArrowLeft size={14} aria-hidden="true" /> portfolio
@@ -175,31 +197,36 @@ export default function Resume() {
           </div>
         </section>
 
-        {/* ------------------------- awards & education ------------------------ */}
+        {/* ------------------------------ awards ------------------------------ */}
         <section className="section">
           <h2 className="cmd">
-            <span className="prompt">~$</span> cat awards.txt education.txt
+            <span className="prompt">~$</span> cat awards.txt
           </h2>
-          <div className="grid two">
-            <div className="panel xp">
-              <h3>
-                <Award size={16} aria-hidden="true" /> Rockstar Rookie Award, Q1 2024
-              </h3>
-              <p className="xp-meta">
-                <span className="accent">Yara International</span>
-                <span className="dim"> · 2024/05</span>
-              </p>
-            </div>
-            <div className="panel xp">
-              <h3>
-                <GraduationCap size={16} aria-hidden="true" /> Information Science &
-                Engineering
-              </h3>
-              <p className="xp-meta">
-                <span className="accent">RNS Institute of Technology, VTU</span>
-                <span className="dim"> · 2019/08 – 2023/07 · Bengaluru, India</span>
-              </p>
-            </div>
+          <div className="panel xp">
+            <h3>
+              <Award size={16} aria-hidden="true" /> Rockstar Rookie Award, Q1 2024
+            </h3>
+            <p className="xp-meta">
+              <span className="accent">Yara International</span>
+              <span className="dim"> · 2024/05</span>
+            </p>
+          </div>
+        </section>
+
+        {/* ----------------------------- education ----------------------------- */}
+        <section className="section">
+          <h2 className="cmd">
+            <span className="prompt">~$</span> cat education.txt
+          </h2>
+          <div className="panel xp">
+            <h3>
+              <GraduationCap size={16} aria-hidden="true" /> Information Science &
+              Engineering
+            </h3>
+            <p className="xp-meta">
+              <span className="accent">RNS Institute of Technology, VTU</span>
+              <span className="dim"> · 2019/08 – 2023/07 · Bengaluru, India</span>
+            </p>
           </div>
           <p className="dim resume-certs">
             # certificates:{' '}
