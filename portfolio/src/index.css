@@ -618,13 +618,15 @@ h1.term-output {
 
   .nav-toggle { display: block; }
 
-  /* frosted glass dropdown panel */
+  /* frosted glass side panel: slides in from the left, only as tall as
+     its items (matches the blog drawer) */
   .nav-links {
     display: none;
     position: absolute;
     top: calc(100% + 0.6rem);
     left: 0.75rem;
-    right: 0.75rem;
+    right: auto;
+    width: min(78vw, 320px);
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
@@ -642,13 +644,13 @@ h1.term-output {
 
   .nav-links.open {
     display: flex;
-    animation: menu-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: menu-in 0.26s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   @keyframes menu-in {
     from {
       opacity: 0;
-      transform: translateY(-8px);
+      transform: translateX(calc(-100% - 1.5rem));
     }
     to {
       opacity: 1;
@@ -671,7 +673,7 @@ h1.term-output {
   @keyframes menu-item-in {
     from {
       opacity: 0;
-      transform: translateY(-6px);
+      transform: translateX(-10px);
     }
     to {
       opacity: 1;
@@ -685,6 +687,8 @@ h1.term-output {
     inset: 0;
     z-index: -1;
     background: rgba(2, 6, 12, 0.5);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     animation: scrim-in 0.22s ease-out;
   }
 

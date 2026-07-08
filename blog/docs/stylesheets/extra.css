@@ -116,15 +116,34 @@
   color: var(--nid-accent);
 }
 
-/* mobile nav drawer: frosted glass panel, same recipe as the portfolio
-   hamburger menu (portfolio/src/index.css) */
+/* mobile nav drawer: floating frosted glass panel, same recipe and shape
+   as the portfolio hamburger menu (portfolio/src/index.css) — slides in
+   from the left and is only as tall as its items */
 @media screen and (max-width: 76.1875em) {
+  /* the theme already floats and slides the drawer; only restyle the
+     surface and let the panel end at its last item */
   .md-sidebar--primary {
+    height: fit-content;
+    max-height: calc(100% - 0.8rem);
     background: rgba(11, 19, 34, 0.62);
     -webkit-backdrop-filter: blur(18px) saturate(1.5);
     backdrop-filter: blur(18px) saturate(1.5);
-    border-right: 1px solid rgba(88, 166, 255, 0.18);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 24px 48px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(88, 166, 255, 0.18);
+    border-radius: 12px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 0 24px var(--nid-glow),
+      0 24px 48px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  /* the theme absolutely positions the scrollwrap, which would collapse a
+     fit-content panel — let it size the panel instead */
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    position: static;
+    height: auto;
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
   }
 
   .md-nav--primary,
