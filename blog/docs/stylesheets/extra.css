@@ -3,6 +3,15 @@
    Matches the portfolio palette (portfolio/src/index.css).
    ========================================================================== */
 
+/* same stack as the portfolio (portfolio/src/index.css --mono): the theme's
+   default fallbacks are sans-serif, so a missed webfont load would render the
+   blog in a different font family than the portfolio. The theme declares these
+   variables on body, so the override must live there too. */
+body {
+  --md-text-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --md-code-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
 :root {
   --nid-bg: #060b14;
   --nid-panel: #0b1322;
@@ -63,7 +72,7 @@
 /* site title styled as the portfolio brand: nidish @blog :~$ */
 .md-header__topic:first-child {
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.75rem; /* 15px — same as the portfolio brand */
   color: var(--nid-text);
 }
 
