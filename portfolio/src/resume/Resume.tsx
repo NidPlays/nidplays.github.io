@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowLeft,
   Award,
@@ -71,6 +71,16 @@ const experience = [
 export default function Resume() {
   const [open, setOpen] = useState(false)
 
+  // close the menu on Escape
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
   return (
     <>
       <div className="bg-grid" aria-hidden="true" />
@@ -88,6 +98,9 @@ export default function Resume() {
             nidish<span className="dim">@resume</span>
             <span className="accent">:~$</span>
           </a>
+          {open && (
+            <div className="nav-scrim" aria-hidden="true" onClick={() => setOpen(false)} />
+          )}
           <nav aria-label="Main navigation">
             <ul
               className={`nav-links${open ? ' open' : ''}`}
