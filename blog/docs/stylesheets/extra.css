@@ -129,10 +129,12 @@ body {
    as the portfolio hamburger menu (portfolio/src/index.css) — slides in
    from the left and is only as tall as its items */
 @media screen and (max-width: 76.1875em) {
-  /* keep the header crisp above the page overlay while the drawer is
-     open, like the portfolio header above its scrim (header is z-index 4,
-     overlay 5); the drawer opens below the header so nothing overlaps */
-  [data-md-toggle="drawer"]:checked ~ .md-header {
+  /* keep the header crisp above the page overlay at all times, like the
+     portfolio header above its scrim (header is z-index 4, overlay 5).
+     Scoping this to the drawer's :checked state made the header dip under
+     the overlay while its closing fade was still running. The drawer opens
+     below the header, so nothing overlaps. */
+  .md-header {
     z-index: 6;
   }
 
