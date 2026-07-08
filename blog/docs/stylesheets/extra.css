@@ -3,6 +3,15 @@
    Matches the portfolio palette (portfolio/src/index.css).
    ========================================================================== */
 
+/* same stack as the portfolio (portfolio/src/index.css --mono): the theme's
+   default fallbacks are sans-serif, so a missed webfont load would render the
+   blog in a different font family than the portfolio. The theme declares these
+   variables on body, so the override must live there too. */
+body {
+  --md-text-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --md-code-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
 :root {
   --nid-bg: #060b14;
   --nid-panel: #0b1322;
@@ -63,7 +72,7 @@
 /* site title styled as the portfolio brand: nidish @blog :~$ */
 .md-header__topic:first-child {
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.75rem; /* 15px — same as the portfolio brand */
   color: var(--nid-text);
 }
 
@@ -114,6 +123,102 @@
 .md-nav__item .md-nav__link--active,
 .md-nav__item .md-nav__link--active code {
   color: var(--nid-accent);
+}
+
+/* mobile nav drawer: floating frosted glass panel, same recipe and shape
+   as the portfolio hamburger menu (portfolio/src/index.css) — slides in
+   from the left and is only as tall as its items */
+@media screen and (max-width: 76.1875em) {
+  /* keep the header crisp above the page overlay at all times, like the
+     portfolio header above its scrim (header is z-index 4, overlay 5).
+     Scoping this to the drawer's :checked state made the header dip under
+     the overlay while its closing fade was still running. The drawer opens
+     below the header, so nothing overlaps. */
+  .md-header {
+    z-index: 6;
+  }
+
+  /* the theme already floats and slides the drawer; only restyle the
+     surface and let the panel end at its last item */
+  .md-sidebar--primary {
+    top: 3rem; /* clear the 2.4rem header, like the portfolio panel */
+    height: fit-content;
+    max-height: calc(100% - 3.6rem);
+    background: rgba(11, 19, 34, 0.62);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    backdrop-filter: blur(18px) saturate(1.5);
+    border: 1px solid rgba(88, 166, 255, 0.18);
+    border-radius: 12px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 0 24px var(--nid-glow),
+      0 24px 48px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  /* the theme absolutely positions the scrollwrap, which would collapse a
+     fit-content panel — let it size the panel instead */
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    position: static;
+    height: auto;
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
+  }
+
+  .md-nav--primary,
+  .md-nav--primary .md-nav,
+  .md-nav--primary .md-nav__title {
+    background: transparent;
+  }
+
+  /* drawer rows styled like the portfolio menu: no title block, no pill,
+     hairline dividers, dim text that turns accent when active/hovered */
+  .md-nav--primary .md-nav__title[for="__drawer"] {
+    display: none;
+  }
+
+  .md-nav--primary > .md-nav__list {
+    gap: 0;
+    padding: 0.5rem 1.1rem;
+  }
+
+  .md-nav--primary > .md-nav__list > .md-nav__item + .md-nav__item {
+    border-top: 1px solid rgba(88, 166, 255, 0.08);
+  }
+
+  .md-nav--primary .md-nav__item--section {
+    margin-top: 0;
+  }
+
+  .md-nav--primary .md-nav__link {
+    margin: 0;
+    padding: 0.7rem 0;
+    border-radius: 0;
+    color: var(--nid-dim);
+    font-weight: 400;
+  }
+
+  .md-nav--primary .md-nav__item--section > .md-nav__link {
+    font-weight: 400;
+  }
+
+  .md-nav--primary .md-nav__item .md-nav__link--active {
+    background: transparent;
+    color: var(--nid-accent);
+    font-weight: 400;
+  }
+
+  .md-nav--primary .md-nav__link[for]:focus:not(.md-nav__link--active),
+  .md-nav--primary .md-nav__link[for]:hover:not(.md-nav__link--active),
+  .md-nav--primary .md-nav__link[href]:focus:not(.md-nav__link--active),
+  .md-nav--primary .md-nav__link[href]:hover:not(.md-nav__link--active) {
+    background: transparent;
+    color: var(--nid-accent);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .md-sidebar--primary { background: var(--nid-panel); }
+  }
 }
 
 /* comments (giscus) */
