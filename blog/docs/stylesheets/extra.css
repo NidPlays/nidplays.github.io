@@ -20,6 +20,13 @@
   --nid-signal: #faa77b;
   --nid-signal-deep: #d3754f;
   --nid-signal-wash: rgba(250, 167, 123, 0.14);
+
+  /* Status colours exist only on this surface — the portfolio has nothing
+     that needs them. Kept desaturated so they belong to the palette rather
+     than importing the theme's stock blue/teal/red. All three clear 4.5:1
+     on the page ground. */
+  --nid-warn: #e3b341;
+  --nid-danger: #e06c5d;
 }
 
 /* The theme declares its font variables on body, so the override lives there
@@ -161,11 +168,80 @@ body {
 }
 
 /* --------------------------------------------------------------------------
+   Admonitions
+
+   The theme ships a different saturated hue per type (teal tip, blue note,
+   orange warning, red danger) as hardcoded hex, which drops four foreign
+   colours onto a near-black-and-apricot palette. Re-map them: the box itself
+   becomes an ordinary raised surface with a hairline, and the type is carried
+   by the icon and title alone. Three tones, because a danger box that reads
+   identically to a tip box is worse than a little colour.
+
+   Scoped under the scheme attribute so these beat the theme's equally
+   specific rules regardless of stylesheet order.
+   -------------------------------------------------------------------------- */
+
+[data-md-color-scheme="slate"] .md-typeset .admonition,
+[data-md-color-scheme="slate"] .md-typeset details {
+  --nid-adm: var(--nid-signal);
+
+  background-color: var(--nid-ink-raised);
+  border: 1px solid var(--nid-line-soft);
+  border-radius: 6px;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details > summary {
+  background-color: transparent;
+  color: var(--nid-adm);
+  font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition > .admonition-title::before,
+[data-md-color-scheme="slate"] .md-typeset details > summary::before {
+  background-color: var(--nid-adm);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition > .admonition-title::after,
+[data-md-color-scheme="slate"] .md-typeset details > summary::after {
+  color: var(--nid-adm);
+}
+
+/* the box is now the same surface code chips sit on, so drop code a step
+   darker or it disappears inside an admonition */
+[data-md-color-scheme="slate"] .md-typeset .admonition code,
+[data-md-color-scheme="slate"] .md-typeset details code {
+  background-color: var(--nid-ink);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .warning,
+[data-md-color-scheme="slate"] .md-typeset .caution,
+[data-md-color-scheme="slate"] .md-typeset .attention {
+  --nid-adm: var(--nid-warn);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .danger,
+[data-md-color-scheme="slate"] .md-typeset .failure,
+[data-md-color-scheme="slate"] .md-typeset .bug {
+  --nid-adm: var(--nid-danger);
+}
+
+/* --------------------------------------------------------------------------
    Sidebar
    -------------------------------------------------------------------------- */
 
+/* The theme marks the current page with a filled pill; the portfolio marks
+   the current section with colour alone, so match that. Needs the
+   .md-nav--primary ancestor to outrank the theme's own rule. */
+.md-nav--primary .md-nav__item .md-nav__link--active,
 .md-nav__item .md-nav__link--active,
 .md-nav__item .md-nav__link--active code {
+  background: transparent;
+  color: var(--nid-signal);
+}
+
+.md-nav__link:hover,
+.md-nav__link:focus {
   color: var(--nid-signal);
 }
 

@@ -30,8 +30,10 @@ extra_javascript = ["javascripts/giscus.js"]
 
 [project.theme]
 language = "en"
+favicon = "images/favicon.svg"
+font = false
 
-# Template overrides (currently: partials/comments.html for giscus)
+# Template overrides: partials/comments.html (giscus) and main.html (theme-color)
 custom_dir = "overrides"
 
 features = [
@@ -54,9 +56,11 @@ features = [
 [project.theme.icon]
 logo = "lucide/cloud-sun"
 
-[project.theme.font]
-text = "Archivo"
-code = "JetBrains Mono"
+# The theme's own font loading is disabled (theme.font = false, above) and
+# the fonts are linked in overrides/main.html instead, using the identical
+# variable-font URL as the portfolio. That gets the width axis Archivo needs
+# for the wordmark and headings, and means a visitor crossing from / to
+# /blog/ reuses one cached file instead of fetching a second static set.
 
 # Dark only. Custom colours live in stylesheets/extra.css.
 [[project.theme.palette]]
