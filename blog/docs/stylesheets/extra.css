@@ -18,7 +18,6 @@
   --nid-text-2: #bcb6b2;
   --nid-text-3: #948c88;
   --nid-signal: #faa77b;
-  --nid-signal-deep: #d3754f;
   --nid-signal-wash: rgba(250, 167, 123, 0.14);
 
   /* Status colours exist only on this surface — the portfolio has nothing
@@ -46,8 +45,10 @@ body {
   --md-default-bg-color: var(--nid-ink);
   --md-default-fg-color: var(--nid-text);
   --md-default-fg-color--light: var(--nid-text-2);
-  --md-default-fg-color--lighter: rgba(148, 140, 136, 0.5);
-  --md-default-fg-color--lightest: rgba(148, 140, 136, 0.2);
+  /* both are --nid-text-3 at reduced alpha; derive them rather than
+     repeating the channel values and letting them drift */
+  --md-default-fg-color--lighter: color-mix(in srgb, var(--nid-text-3) 50%, transparent);
+  --md-default-fg-color--lightest: color-mix(in srgb, var(--nid-text-3) 20%, transparent);
 
   /* header + primary */
   --md-primary-fg-color: var(--nid-ink);

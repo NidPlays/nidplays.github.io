@@ -27,8 +27,6 @@
 
   /* --- signal: the apricot out of the dusk frame ------------------------ */
   --signal: oklch(0.8 0.115 48);
-  --signal-deep: oklch(0.66 0.13 42);
-  --signal-wash: oklch(0.8 0.115 48 / 0.14);
 
   /* --- type ------------------------------------------------------------ */
   --sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -124,11 +122,6 @@ img {
 
 .wrap {
   width: min(1140px, 100% - var(--gutter) * 2);
-  margin-inline: auto;
-}
-
-.wrap-narrow {
-  width: min(760px, 100% - var(--gutter) * 2);
   margin-inline: auto;
 }
 
@@ -1313,7 +1306,6 @@ p a,
     --text-2: #2f2a26;
     --text-3: #57504b;
     --signal: #8a4a26;
-    --signal-deep: #8a4a26;
   }
 
   body {
