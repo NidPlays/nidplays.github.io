@@ -245,13 +245,13 @@ body {
   color: var(--nid-signal);
 }
 
-/* Zensical 0.0.51 renders a search button and generates search.json, but
-   ships no dialog UI to consume it — there is not one md-search__* selector
-   in either theme stylesheet or the JS bundle. The form/input rules that
-   used to live here were styling elements that never existed, so they are
-   gone. Style only what the theme actually renders. */
+/* The search overlay lives in a shadow root, so the trigger button in the
+   header is the only part of it reachable from this stylesheet. The rules
+   that used to sit here targeted .md-search__form and .md-search__input,
+   which exist nowhere in this theme. */
 .md-search__button {
   color: var(--nid-text-2);
+  cursor: pointer;
   transition: color 0.2s ease;
 }
 
@@ -268,6 +268,17 @@ body {
      drawer's closing fade is still running */
   .md-header {
     z-index: 6;
+  }
+
+  /* ...except while search is open. On this breakpoint the search overlay
+     puts its input up in the header band (around y=9, 36px tall), but the
+     overlay's shadow-DOM host is a fixed div at z-index 4 — so a header
+     pinned to 6 paints straight over the input and you type into something
+     you cannot see. Desktop is unaffected: there the input drops to y=191
+     and the header is only z-index 4. #__search and .md-header are both
+     children of body, so the sibling combinator reaches it. */
+  #__search:checked ~ .md-header {
+    z-index: 3;
   }
 
   /* The theme puts the drawer button hard left; the portfolio's menu button
