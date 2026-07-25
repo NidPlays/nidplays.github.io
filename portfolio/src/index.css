@@ -224,6 +224,32 @@ p a,
   border-bottom-color: var(--line-soft);
 }
 
+/* Over the hero the header has no background of its own, so the wordmark and
+   links sit straight on the photograph. Rather than boxing each control, give
+   the whole band a soft floor that fades out well before it reads as a bar —
+   it holds up if the hero frame is ever swapped for a brighter one. Sits
+   behind the header's own content, contained by the header's stacking
+   context, and gets out of the way once the solid background takes over. */
+.nav::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 220%;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--ink) 58%, transparent),
+    color-mix(in oklab, var(--ink) 22%, transparent) 45%,
+    transparent
+  );
+  transition: opacity 0.4s var(--ease-out-quart);
+}
+
+.nav.is-stuck::before {
+  opacity: 0;
+}
+
 .nav-inner {
   display: flex;
   align-items: center;
@@ -251,12 +277,18 @@ p a,
   vertical-align: 0.06em;
 }
 
+/* the <nav> is the flex item of .nav-inner, not the <ul> inside it — putting
+   the auto margin on the list pushes nothing and leaves the links clustered
+   against the wordmark with the right half of the header empty */
+.nav-inner nav {
+  margin-left: auto;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
   gap: clamp(1rem, 2.2vw, 1.9rem);
   list-style: none;
-  margin-left: auto;
 }
 
 .nav-links a,
@@ -1088,26 +1120,36 @@ p a,
    -------------------------------------------------------------------------- */
 
 @media (max-width: 780px) {
+  /* the toggle takes the auto margin down here; leaving it on the <nav> too
+     would split the free space between them and strand the toggle mid-header */
+  .nav-inner nav {
+    margin-left: 0;
+  }
+
+  /* A bare glyph, to match the bare wordmark opposite it — the header band's
+     own gradient does the legibility work a box used to. Keeps a 44px tap
+     target, and the negative margin pulls the glyph itself out to the gutter
+     so it optically aligns with the wordmark rather than sitting a padding's
+     width short of it. */
   .nav-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-left: auto;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: color-mix(in oklab, var(--ink) 55%, transparent);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--line);
+    margin-right: -1.05rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    background: none;
+    border: 0;
     border-radius: var(--radius);
     color: var(--text);
     cursor: pointer;
-    transition: border-color 0.2s var(--ease-out-quart);
+    transition: color 0.2s var(--ease-out-quart);
   }
 
   .nav-toggle:hover,
   .nav-toggle[aria-expanded="true"] {
-    border-color: var(--text-3);
+    color: var(--signal);
   }
 
   .nav-links {
@@ -1200,8 +1242,7 @@ p a,
   }
 
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .nav-links,
-    .nav-toggle {
+    .nav-links {
       background: var(--ink-raised);
     }
 

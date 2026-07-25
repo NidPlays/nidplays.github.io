@@ -245,12 +245,18 @@ body {
   color: var(--nid-signal);
 }
 
-.md-search__form {
-  background-color: var(--nid-ink-raised);
+/* Zensical 0.0.51 renders a search button and generates search.json, but
+   ships no dialog UI to consume it — there is not one md-search__* selector
+   in either theme stylesheet or the JS bundle. The form/input rules that
+   used to live here were styling elements that never existed, so they are
+   gone. Style only what the theme actually renders. */
+.md-search__button {
+  color: var(--nid-text-2);
+  transition: color 0.2s ease;
 }
 
-.md-search__input::placeholder {
-  color: var(--nid-text-3);
+.md-search__button:hover {
+  color: var(--nid-signal);
 }
 
 /* --------------------------------------------------------------------------
@@ -262,6 +268,32 @@ body {
      drawer's closing fade is still running */
   .md-header {
     z-index: 6;
+  }
+
+  /* The theme puts the drawer button hard left; the portfolio's menu button
+     is on the right. Send it to the end of the header — the title's
+     flex-grow does the pushing — which also leaves search sitting to its
+     left. The negative margin pulls the glyph out to the gutter so it lines
+     up with the wordmark opposite, the same trick the portfolio uses. */
+  .md-header__button[for="__drawer"] {
+    order: 10;
+    margin-right: -0.1rem;
+  }
+
+  /* ...and bring the panel across with it. A button on the right opening a
+     panel on the left only trades one oddity for another. This is the
+     theme's own RTL geometry applied in an LTR document, so the slide
+     distance stays in step with the width the theme sets. */
+  [dir="ltr"][data-md-color-scheme="slate"] .md-sidebar--primary {
+    left: auto;
+    right: -12.1rem;
+  }
+
+  [dir="ltr"][data-md-color-scheme="slate"]
+    [data-md-toggle="drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary {
+    transform: translateX(-12.5rem);
   }
 
   .md-sidebar--primary {
