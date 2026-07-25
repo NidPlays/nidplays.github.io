@@ -1,77 +1,93 @@
 import { useEffect, useRef, useState } from 'react'
 
-/** Cycles through `words` with a terminal-style type/delete animation. */
-export function useTypewriter(words: string[], holdMs = 2200): string {
-  const [text, setText] = useState(words[0])
-  const reduceMotion = useRef(
-    typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  )
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  useEffect(() => {
-    if (reduceMotion.current) return
-
-    let wordIndex = 0
-    let charIndex = words[0].length
-    let deleting = true
-    let timer: ReturnType<typeof setTimeout>
-
-    const tick = () => {
-      if (deleting) {
-        charIndex--
-        if (charIndex === 0) {
-          deleting = false
-          wordIndex = (wordIndex + 1) % words.length
-        }
-      } else {
-        charIndex++
-        if (charIndex === words[wordIndex].length) {
-          deleting = true
-          setText(words[wordIndex])
-          timer = setTimeout(tick, holdMs)
-          return
-        }
-      }
-      setText(words[wordIndex].slice(0, charIndex))
-      timer = setTimeout(tick, deleting ? 45 : 85)
-    }
-
-    timer = setTimeout(tick, holdMs)
-    return () => clearTimeout(timer)
-  }, [words, holdMs])
-
-  return text
-}
-
-/** Adds the `visible` class once the element scrolls into view. */
+/**
+ * Reveals an element once it scrolls into view.
+ *
+ * The element is styled visible by default; the hidden state is only ever
+ * applied here, at runtime. A headless render, a background tab or a JS
+ * failure therefore ships the section readable rather than blank.
+ */
 export function useReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) return
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-      el.classList.add('visible')
-      return
-    }
+    el.classList.add('is-armed')
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
+    // let the armed state paint before observing, so an element already on
+    // screen animates in rather than snapping
+    let observer: IntersectionObserver | undefined
+    const frame = requestAnimationFrame(() => {
+      observer = new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue
+            entry.target.classList.remove('is-armed')
+            entry.target.classList.add('is-in')
+            obs.unobserve(entry.target)
           }
-        })
-      },
-      { threshold: 0.12 },
-    )
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -8% 0px' },
+      )
+      observer.observe(el)
+    })
 
-    observer.observe(el)
-    return () => observer.disconnect()
+    return () => {
+      cancelAnimationFrame(frame)
+      observer?.disconnect()
+    }
   }, [])
 
   return ref
+}
+
+/** True once the page has scrolled past `offset` — drives the nav background. */
+export function useScrolled(offset = 40): boolean {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > offset)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [offset])
+
+  return scrolled
+}
+
+/** The id of the section currently occupying the reading band of the viewport. */
+export function useActiveSection(ids: string[]): string {
+  const [active, setActive] = useState('')
+
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return
+
+    const visible = new Set<string>()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target.id)
+          else visible.delete(entry.target.id)
+        }
+        // keep document order so overlapping sections resolve predictably
+        setActive(ids.find((id) => visible.has(id)) ?? '')
+      },
+      { rootMargin: '-25% 0px -55% 0px' },
+    )
+
+    for (const id of ids) {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    }
+    return () => observer.disconnect()
+  }, [ids])
+
+  return active
 }

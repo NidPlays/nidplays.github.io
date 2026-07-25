@@ -1,22 +1,36 @@
-import { useEffect, useState } from 'react'
-import { BookOpen, Menu, X } from 'lucide-react'
+import { useEffect, useState, type ReactNode } from 'react'
+import { Menu, X } from 'lucide-react'
 
-const links = [
-  { href: '#about', label: './about' },
-  { href: '#skills', label: './skills' },
-  { href: '#projects', label: './projects' },
-  { href: '#shots', label: './shots' },
-  { href: '#contact', label: './contact' },
-  { href: '/resume/', label: './resume' },
-]
+export interface NavItem {
+  href: string
+  label: string
+  /** id of the section this item points at, for the current-section marker */
+  sectionId?: string
+  cta?: boolean
+}
 
-const sectionIds = ['about', 'skills', 'projects', 'shots', 'contact']
+interface NavProps {
+  items: NavItem[]
+  /** id of the section currently in view */
+  active?: string
+  /** extra row rendered at the end of the list (e.g. the resume print button) */
+  trailing?: ReactNode
+  brandHref?: string
+  scrolled?: boolean
+}
 
-export default function Nav() {
+const MOBILE = 780
+
+export default function Nav({
+  items,
+  active = '',
+  trailing,
+  brandHref = '#top',
+  scrolled = false,
+}: NavProps) {
   const [open, setOpen] = useState(false)
-  const [active, setActive] = useState('')
 
-  // close the menu on Escape
+  // Escape closes the sheet
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -26,59 +40,75 @@ export default function Nav() {
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
-  // highlight the section currently in view
+  // the sheet only exists below the breakpoint; leaving it "open" past that
+  // width would strand the scroll lock
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(`#${entry.target.id}`)
-        }
-      },
-      { rootMargin: '-30% 0px -60% 0px' },
-    )
-    for (const id of sectionIds) {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
+    if (!open) return
+    const onResize = () => {
+      if (window.innerWidth > MOBILE) setOpen(false)
     }
-    return () => observer.disconnect()
-  }, [])
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [open])
+
+  // hold the page still behind the open sheet
+  useEffect(() => {
+    if (!open) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previous
+    }
+  }, [open])
 
   return (
-    <header className="nav">
-      <div className="container nav-inner">
+    <header className={`nav${scrolled ? ' is-stuck' : ''}`}>
+      <div className="wrap nav-inner">
+        <a className="brand" href={brandHref}>
+          Nidish
+        </a>
+
         <button
           className="nav-toggle"
-          aria-label="Toggle menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
+          aria-controls="nav-menu"
           onClick={() => setOpen(!open)}
         >
-          {open ? <X size={18} /> : <Menu size={18} />}
+          {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
         </button>
-        <a className="brand" href="#top">
-          nidish<span className="dim">@portfolio</span>
-          <span className="accent">:~$</span>
-        </a>
-        {open && (
-          <div className="nav-scrim" aria-hidden="true" onClick={() => setOpen(false)} />
-        )}
-        <nav aria-label="Main navigation">
-          <ul className={`nav-links${open ? ' open' : ''}`} onClick={() => setOpen(false)}>
-            {links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className={active === link.href ? 'active' : undefined}
-                  aria-current={active === link.href ? 'true' : undefined}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a className="btn-blog" href="/blog/">
-                blog <BookOpen size={14} aria-hidden="true" />
-              </a>
-            </li>
+
+        {open ? (
+          <button
+            type="button"
+            className="nav-scrim"
+            aria-label="Close menu"
+            tabIndex={-1}
+            onClick={() => setOpen(false)}
+          />
+        ) : null}
+
+        <nav aria-label="Main">
+          <ul
+            id="nav-menu"
+            className={`nav-links${open ? ' is-open' : ''}`}
+            onClick={() => setOpen(false)}
+          >
+            {items.map((item) => {
+              const current = item.sectionId != null && item.sectionId === active
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className={item.cta ? 'nav-cta' : undefined}
+                    aria-current={current ? 'true' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              )
+            })}
+            {trailing ? <li>{trailing}</li> : null}
           </ul>
         </nav>
       </div>

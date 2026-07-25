@@ -1,37 +1,37 @@
 import { Mail } from 'lucide-react'
 import { SiGithub } from '@icons-pack/react-simple-icons'
-import Section from './Section'
 import { LinkedinIcon } from './BrandIcons'
+import { useReveal } from '../hooks'
 
 export default function Contact() {
+  const ref = useReveal<HTMLElement>()
+
   return (
-    <Section id="contact" command="ssh contact@nidish.xyz">
-      <div className="panel contact-panel">
-        <p className="term-line">
-          <span className="prompt">&gt;</span> Connection established. Say hello:
-        </p>
-        <div className="hero-actions">
-          <a className="btn primary" href="mailto:admin@nidish.xyz" aria-label="Email Nidish">
-            <Mail size={16} aria-hidden="true" /> admin@nidish.xyz
+    <section id="contact" className="contact wrap reveal" ref={ref}>
+      <h2 className="contact-statement">
+        Happy to talk about agents, data platforms, or where to find a decent sky.
+      </h2>
+
+      <ul className="contact-list">
+        <li>
+          <a href="mailto:admin@nidish.xyz">
+            <Mail size={16} aria-hidden="true" />
+            admin@nidish.xyz
           </a>
-          <a
-            className="btn"
-            href="https://github.com/NidPlays"
-            rel="noopener"
-            aria-label="Nidish on GitHub"
-          >
-            <SiGithub size={16} aria-hidden="true" /> NidPlays
+        </li>
+        <li>
+          <a href="https://github.com/NidPlays" rel="noopener">
+            <SiGithub size={16} aria-hidden="true" />
+            github.com/NidPlays
           </a>
-          <a
-            className="btn"
-            href="https://www.linkedin.com/in/nidish-g/"
-            rel="noopener"
-            aria-label="Nidish on LinkedIn"
-          >
-            <LinkedinIcon size={16} /> nidish-g
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/nidish-g/" rel="noopener">
+            <LinkedinIcon size={16} />
+            linkedin.com/in/nidish-g
           </a>
-        </div>
-      </div>
-    </Section>
+        </li>
+      </ul>
+    </section>
   )
 }

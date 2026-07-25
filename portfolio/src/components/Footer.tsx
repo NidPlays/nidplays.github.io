@@ -1,18 +1,17 @@
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="container">
-        <p>
-          <span className="prompt">~$</span> echo "© {new Date().getFullYear()} Nidish ·
-          blog by{' '}
+      <div className="wrap footer-inner">
+        <p className="meta">© {new Date().getFullYear()} Nidish G</p>
+        <p className="meta">
+          Blog by{' '}
           <a href="https://zensical.org" rel="noopener">
-            zensical
+            Zensical
           </a>{' '}
-          · built with{' '}
+          · Built with{' '}
           <a href="https://vite.dev" rel="noopener">
-            vite
+            Vite
           </a>
-          "
         </p>
       </div>
     </footer>

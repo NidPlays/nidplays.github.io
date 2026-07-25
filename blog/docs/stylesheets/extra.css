@@ -1,158 +1,323 @@
 /* ==========================================================================
-   nidish@blog — dark terminal / blue overrides for the slate scheme
-   Matches the portfolio palette (portfolio/src/index.css).
+   nidish — blog
+
+   Same design system as the portfolio (portfolio/src/index.css): near-black
+   ground at almost zero chroma, one apricot signal pulled from the dusk
+   photograph, Archivo for text and JetBrains Mono kept for code and metadata.
+   Values are hex here because the Material theme composes them with colour
+   functions that expect sRGB.
    ========================================================================== */
 
-/* same stack as the portfolio (portfolio/src/index.css --mono): the theme's
-   default fallbacks are sans-serif, so a missed webfont load would render the
-   blog in a different font family than the portfolio. The theme declares these
-   variables on body, so the override must live there too. */
-body {
-  --md-text-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --md-code-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+:root {
+  --nid-ink: #0c0908;
+  --nid-ink-raised: #171311;
+  --nid-ink-sunken: #060504;
+  --nid-line-soft: #211d1b;
+  --nid-line: #322c2a;
+  --nid-text: #f4f1ef;
+  --nid-text-2: #bcb6b2;
+  --nid-text-3: #948c88;
+  --nid-signal: #faa77b;
+  --nid-signal-wash: rgba(250, 167, 123, 0.14);
+
+  /* Status colours exist only on this surface — the portfolio has nothing
+     that needs them. Kept desaturated so they belong to the palette rather
+     than importing the theme's stock blue/teal/red. All three clear 4.5:1
+     on the page ground. */
+  --nid-warn: #e3b341;
+  --nid-danger: #e06c5d;
 }
 
-:root {
-  --nid-bg: #060b14;
-  --nid-panel: #0b1322;
-  --nid-panel-2: #0e1728;
-  --nid-border: #1c2a42;
-  --nid-accent: #58a6ff;
-  --nid-accent-strong: #2f81f7;
-  --nid-glow: rgba(88, 166, 255, 0.18);
-  --nid-text: #dbe6f5;
-  --nid-dim: #7d8fa9;
+/* The theme declares its font variables on body, so the override lives there
+   too — otherwise a missed webfont load renders the blog in a different
+   family than the portfolio. */
+body {
+  --md-text-font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --md-code-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
 }
 
 [data-md-color-scheme="slate"] {
-  --md-hue: 218;
+  --md-hue: 25;
 
   /* page */
-  --md-default-bg-color: var(--nid-bg);
+  --md-default-bg-color: var(--nid-ink);
   --md-default-fg-color: var(--nid-text);
-  --md-default-fg-color--light: var(--nid-dim);
-  --md-default-fg-color--lighter: rgba(125, 143, 169, 0.5);
-  --md-default-fg-color--lightest: rgba(125, 143, 169, 0.2);
+  --md-default-fg-color--light: var(--nid-text-2);
+  /* both are --nid-text-3 at reduced alpha; derive them rather than
+     repeating the channel values and letting them drift */
+  --md-default-fg-color--lighter: color-mix(in srgb, var(--nid-text-3) 50%, transparent);
+  --md-default-fg-color--lightest: color-mix(in srgb, var(--nid-text-3) 20%, transparent);
 
   /* header + primary */
-  --md-primary-fg-color: var(--nid-bg);
-  --md-primary-fg-color--light: var(--nid-panel);
-  --md-primary-fg-color--dark: var(--nid-bg);
+  --md-primary-fg-color: var(--nid-ink);
+  --md-primary-fg-color--light: var(--nid-ink-raised);
+  --md-primary-fg-color--dark: var(--nid-ink);
   --md-primary-bg-color: var(--nid-text);
-  --md-primary-bg-color--light: var(--nid-dim);
+  --md-primary-bg-color--light: var(--nid-text-2);
 
   /* accent + links */
-  --md-accent-fg-color: var(--nid-accent);
-  --md-accent-fg-color--transparent: var(--nid-glow);
-  --md-typeset-a-color: var(--nid-accent);
+  --md-accent-fg-color: var(--nid-signal);
+  --md-accent-fg-color--transparent: var(--nid-signal-wash);
+  --md-typeset-a-color: var(--nid-signal);
 
   /* code */
-  --md-code-bg-color: var(--nid-panel);
+  --md-code-bg-color: var(--nid-ink-raised);
   --md-code-fg-color: var(--nid-text);
 
   /* footer */
-  --md-footer-bg-color: var(--nid-panel);
-  --md-footer-bg-color--dark: var(--nid-bg);
+  --md-footer-bg-color: var(--nid-ink-sunken);
+  --md-footer-bg-color--dark: var(--nid-ink-sunken);
 }
 
-/* header: translucent + blur with a thin border, same as the portfolio nav */
+/* --------------------------------------------------------------------------
+   Header — matches the portfolio nav once it has a background
+   -------------------------------------------------------------------------- */
+
 .md-header {
-  background: rgba(6, 11, 20, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--nid-border);
+  background: rgba(12, 9, 8, 0.86);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom: 1px solid var(--nid-line-soft);
   box-shadow: none;
 }
 
-/* hide the theme logo icon — the portfolio brand is text-only */
 .md-header__button.md-logo {
   display: none;
 }
 
-/* site title styled as the portfolio brand: nidish @blog :~$ */
-.md-header__topic:first-child {
+/* the site title is the portfolio wordmark, with the same apricot full stop */
+.md-header__topic:first-child .md-ellipsis {
   font-weight: 700;
-  font-size: 0.75rem; /* 15px — same as the portfolio brand */
+  font-stretch: 112%;
+  font-size: 1.0625rem;
+  letter-spacing: -0.015em;
   color: var(--nid-text);
 }
 
-.nid-brand-dim {
-  color: var(--nid-dim);
+.md-header__topic:first-child .md-ellipsis::after {
+  content: "";
+  display: inline-block;
+  width: 0.32em;
+  height: 0.32em;
+  margin-left: 0.22em;
+  border-radius: 50%;
+  background: var(--nid-signal);
+  vertical-align: 0.06em;
 }
 
-.nid-brand-accent {
-  color: var(--nid-accent);
+/* --------------------------------------------------------------------------
+   Typeset
+   -------------------------------------------------------------------------- */
+
+.md-typeset {
+  line-height: 1.68;
 }
 
-/* headings: monospace prompt marker */
 .md-typeset h1,
-.md-typeset h2 {
-  font-weight: 700;
+.md-typeset h2,
+.md-typeset h3 {
   color: var(--nid-text);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
-.md-typeset h2::before {
-  content: "# ";
-  color: var(--nid-accent);
+.md-typeset h1 {
+  font-weight: 700;
+  font-stretch: 112%;
+  letter-spacing: -0.035em;
 }
 
-/* code blocks: panel look with subtle border */
+.md-typeset h2 {
+  margin-top: 2.5em;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--nid-line-soft);
+}
+
+.md-typeset p {
+  text-wrap: pretty;
+}
+
+/* code blocks: a raised surface with a hairline, like the portfolio's */
 .md-typeset pre > code {
-  border: 1px solid var(--nid-border);
-  border-radius: 8px;
+  border: 1px solid var(--nid-line-soft);
+  border-radius: 6px;
 }
 
-/* inline code: blue tint */
 .md-typeset code {
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
-/* blockquotes: blue bar */
+/* A quote is set off by indent and a hairline, not by a coloured bar. */
 .md-typeset blockquote {
-  border-left: 2px solid var(--nid-accent);
-  color: var(--nid-dim);
+  border-left: 1px solid var(--nid-line);
+  padding-left: 1.4rem;
+  margin-left: 0;
+  color: var(--nid-text-2);
 }
 
-/* buttons + interactive highlights follow the accent */
+.md-typeset hr {
+  border-bottom-color: var(--nid-line-soft);
+}
+
 .md-typeset .md-button--primary {
-  background-color: var(--nid-accent-strong);
-  border-color: var(--nid-accent-strong);
+  background-color: var(--nid-signal);
+  border-color: var(--nid-signal);
+  color: var(--nid-ink);
 }
 
-/* sidebar: dim inactive, blue active */
+/* --------------------------------------------------------------------------
+   Admonitions
+
+   The theme ships a different saturated hue per type (teal tip, blue note,
+   orange warning, red danger) as hardcoded hex, which drops four foreign
+   colours onto a near-black-and-apricot palette. Re-map them: the box itself
+   becomes an ordinary raised surface with a hairline, and the type is carried
+   by the icon and title alone. Three tones, because a danger box that reads
+   identically to a tip box is worse than a little colour.
+
+   Scoped under the scheme attribute so these beat the theme's equally
+   specific rules regardless of stylesheet order.
+   -------------------------------------------------------------------------- */
+
+[data-md-color-scheme="slate"] .md-typeset .admonition,
+[data-md-color-scheme="slate"] .md-typeset details {
+  --nid-adm: var(--nid-signal);
+
+  background-color: var(--nid-ink-raised);
+  border: 1px solid var(--nid-line-soft);
+  border-radius: 6px;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details > summary {
+  background-color: transparent;
+  color: var(--nid-adm);
+  font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition > .admonition-title::before,
+[data-md-color-scheme="slate"] .md-typeset details > summary::before {
+  background-color: var(--nid-adm);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition > .admonition-title::after,
+[data-md-color-scheme="slate"] .md-typeset details > summary::after {
+  color: var(--nid-adm);
+}
+
+/* the box is now the same surface code chips sit on, so drop code a step
+   darker or it disappears inside an admonition */
+[data-md-color-scheme="slate"] .md-typeset .admonition code,
+[data-md-color-scheme="slate"] .md-typeset details code {
+  background-color: var(--nid-ink);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .warning,
+[data-md-color-scheme="slate"] .md-typeset .caution,
+[data-md-color-scheme="slate"] .md-typeset .attention {
+  --nid-adm: var(--nid-warn);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .danger,
+[data-md-color-scheme="slate"] .md-typeset .failure,
+[data-md-color-scheme="slate"] .md-typeset .bug {
+  --nid-adm: var(--nid-danger);
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar
+   -------------------------------------------------------------------------- */
+
+/* The theme marks the current page with a filled pill; the portfolio marks
+   the current section with colour alone, so match that. Needs the
+   .md-nav--primary ancestor to outrank the theme's own rule. */
+.md-nav--primary .md-nav__item .md-nav__link--active,
 .md-nav__item .md-nav__link--active,
 .md-nav__item .md-nav__link--active code {
-  color: var(--nid-accent);
+  background: transparent;
+  color: var(--nid-signal);
 }
 
-/* mobile nav drawer: floating frosted glass panel, same recipe and shape
-   as the portfolio hamburger menu (portfolio/src/index.css) — slides in
-   from the left and is only as tall as its items */
+.md-nav__link:hover,
+.md-nav__link:focus {
+  color: var(--nid-signal);
+}
+
+/* The search overlay lives in a shadow root, so the trigger button in the
+   header is the only part of it reachable from this stylesheet. The rules
+   that used to sit here targeted .md-search__form and .md-search__input,
+   which exist nowhere in this theme. */
+.md-search__button {
+  color: var(--nid-text-2);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.md-search__button:hover {
+  color: var(--nid-signal);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile drawer — the same floating sheet as the portfolio menu
+   -------------------------------------------------------------------------- */
+
 @media screen and (max-width: 76.1875em) {
-  /* keep the header crisp above the page overlay at all times, like the
-     portfolio header above its scrim (header is z-index 4, overlay 5).
-     Scoping this to the drawer's :checked state made the header dip under
-     the overlay while its closing fade was still running. The drawer opens
-     below the header, so nothing overlaps. */
+  /* keep the header above the page overlay at all times, including while the
+     drawer's closing fade is still running */
   .md-header {
     z-index: 6;
   }
 
-  /* the theme already floats and slides the drawer; only restyle the
-     surface and let the panel end at its last item */
+  /* ...except while search is open. On this breakpoint the search overlay
+     puts its input up in the header band (around y=9, 36px tall), but the
+     overlay's shadow-DOM host is a fixed div at z-index 4 — so a header
+     pinned to 6 paints straight over the input and you type into something
+     you cannot see. Desktop is unaffected: there the input drops to y=191
+     and the header is only z-index 4. #__search and .md-header are both
+     children of body, so the sibling combinator reaches it. */
+  #__search:checked ~ .md-header {
+    z-index: 3;
+  }
+
+  /* The theme puts the drawer button hard left; the portfolio's menu button
+     is on the right. Send it to the end of the header — the title's
+     flex-grow does the pushing — which also leaves search sitting to its
+     left. The negative margin pulls the glyph out to the gutter so it lines
+     up with the wordmark opposite, the same trick the portfolio uses. */
+  .md-header__button[for="__drawer"] {
+    order: 10;
+    margin-right: -0.1rem;
+  }
+
+  /* ...and bring the panel across with it. A button on the right opening a
+     panel on the left only trades one oddity for another. This is the
+     theme's own RTL geometry applied in an LTR document, so the slide
+     distance stays in step with the width the theme sets. */
+  [dir="ltr"][data-md-color-scheme="slate"] .md-sidebar--primary {
+    left: auto;
+    right: -12.1rem;
+  }
+
+  [dir="ltr"][data-md-color-scheme="slate"]
+    [data-md-toggle="drawer"]:checked
+    ~ .md-container
+    .md-sidebar--primary {
+    transform: translateX(-12.5rem);
+  }
+
   .md-sidebar--primary {
-    top: 3rem; /* clear the 2.4rem header, like the portfolio panel */
+    top: 3rem;
     height: fit-content;
     max-height: calc(100% - 3.6rem);
-    background: rgba(11, 19, 34, 0.62);
-    -webkit-backdrop-filter: blur(18px) saturate(1.5);
-    backdrop-filter: blur(18px) saturate(1.5);
-    border: 1px solid rgba(88, 166, 255, 0.18);
-    border-radius: 12px;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.07),
-      0 0 24px var(--nid-glow),
-      0 24px 48px rgba(0, 0, 0, 0.5);
+    background: rgba(23, 19, 17, 0.82);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid var(--nid-line);
+    border-radius: 6px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
     overflow: hidden;
   }
 
@@ -171,19 +336,17 @@ body {
     background: transparent;
   }
 
-  /* drawer rows styled like the portfolio menu: no title block, no pill,
-     hairline dividers, dim text that turns accent when active/hovered */
   .md-nav--primary .md-nav__title[for="__drawer"] {
     display: none;
   }
 
   .md-nav--primary > .md-nav__list {
     gap: 0;
-    padding: 0.5rem 1.1rem;
+    padding: 0.35rem 1.15rem;
   }
 
   .md-nav--primary > .md-nav__list > .md-nav__item + .md-nav__item {
-    border-top: 1px solid rgba(88, 166, 255, 0.08);
+    border-top: 1px solid var(--nid-line-soft);
   }
 
   .md-nav--primary .md-nav__item--section {
@@ -192,20 +355,20 @@ body {
 
   .md-nav--primary .md-nav__link {
     margin: 0;
-    padding: 0.7rem 0;
+    padding: 0.85rem 0;
     border-radius: 0;
-    color: var(--nid-dim);
-    font-weight: 400;
+    color: var(--nid-text-2);
+    font-weight: 500;
   }
 
   .md-nav--primary .md-nav__item--section > .md-nav__link {
-    font-weight: 400;
+    font-weight: 500;
   }
 
   .md-nav--primary .md-nav__item .md-nav__link--active {
     background: transparent;
-    color: var(--nid-accent);
-    font-weight: 400;
+    color: var(--nid-signal);
+    font-weight: 500;
   }
 
   .md-nav--primary .md-nav__link[for]:focus:not(.md-nav__link--active),
@@ -213,26 +376,26 @@ body {
   .md-nav--primary .md-nav__link[href]:focus:not(.md-nav__link--active),
   .md-nav--primary .md-nav__link[href]:hover:not(.md-nav__link--active) {
     background: transparent;
-    color: var(--nid-accent);
+    color: var(--nid-signal);
   }
 
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .md-sidebar--primary { background: var(--nid-panel); }
+    .md-sidebar--primary {
+      background: var(--nid-ink-raised);
+    }
   }
 }
 
-/* comments (giscus) */
+/* --------------------------------------------------------------------------
+   Comments (giscus)
+   -------------------------------------------------------------------------- */
+
 #__comments {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--nid-border);
+  border-top: 1px solid var(--nid-line-soft);
 }
 
 .giscus {
   margin-top: 1rem;
-}
-
-/* search field on dark header */
-.md-search__form {
-  background-color: var(--nid-panel-2);
 }

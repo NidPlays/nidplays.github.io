@@ -1,18 +1,13 @@
-import { useEffect, useState } from 'react'
-import {
-  ArrowLeft,
-  Award,
-  BookOpen,
-  Briefcase,
-  GraduationCap,
-  Mail,
-  MapPin,
-  Menu,
-  Printer,
-  X,
-} from 'lucide-react'
+import { Mail, MapPin, Printer } from 'lucide-react'
 import { SiGithub } from '@icons-pack/react-simple-icons'
+import Nav, { type NavItem } from '../components/Nav'
 import { LinkedinIcon } from '../components/BrandIcons'
+import { useScrolled } from '../hooks'
+
+const navItems: NavItem[] = [
+  { href: '/', label: 'Portfolio' },
+  { href: '/blog/', label: 'Blog', cta: true },
+]
 
 const skills = [
   'Gen AI',
@@ -69,192 +64,122 @@ const experience = [
 ]
 
 export default function Resume() {
-  const [open, setOpen] = useState(false)
-
-  // close the menu on Escape
-  useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open])
+  const scrolled = useScrolled(40)
 
   return (
     <>
-      <div className="bg-grid" aria-hidden="true" />
-      <header className="nav">
-        <div className="container nav-inner">
-          <button
-            className="nav-toggle"
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={18} /> : <Menu size={18} />}
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <div className="grain" aria-hidden="true" />
+
+      <Nav
+        items={navItems}
+        brandHref="/"
+        scrolled={scrolled}
+        trailing={
+          <button className="btn-print" onClick={() => window.print()}>
+            <Printer size={14} aria-hidden="true" /> Print
           </button>
-          <a className="brand" href="/">
-            nidish<span className="dim">@resume</span>
-            <span className="accent">:~$</span>
-          </a>
-          {open && (
-            <div className="nav-scrim" aria-hidden="true" onClick={() => setOpen(false)} />
-          )}
-          <nav aria-label="Main navigation">
-            <ul
-              className={`nav-links${open ? ' open' : ''}`}
-              onClick={() => setOpen(false)}
-            >
-              <li>
-                <a href="/">
-                  <ArrowLeft size={14} aria-hidden="true" /> portfolio
-                </a>
-              </li>
-              <li>
-                <a href="/blog/">
-                  <BookOpen size={14} aria-hidden="true" /> blog
-                </a>
-              </li>
-              <li>
-                <button className="btn-print" onClick={() => window.print()}>
-                  <Printer size={14} aria-hidden="true" /> print
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+        }
+      />
 
-      <main className="container resume">
-        {/* ------------------------------ header ----------------------------- */}
-        <section className="section resume-head">
-          <h1 className="cmd">
-            <span className="prompt">~$</span> cat resume.md
-          </h1>
-          <div className="panel">
-            <h2 className="resume-name">
-              Nidish G<span className="accent">.</span>
-            </h2>
-            <ul className="resume-links">
-              <li>
-                <a href="mailto:resume@nidish.xyz">
-                  <Mail size={14} aria-hidden="true" /> resume@nidish.xyz
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/NidPlays" rel="noopener">
-                  <SiGithub size={14} aria-hidden="true" /> NidPlays
-                </a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/in/nidish-g/" rel="noopener">
-                  <LinkedinIcon size={14} /> nidish-g
-                </a>
-              </li>
-              <li className="dim">
-                <MapPin size={14} aria-hidden="true" /> Bengaluru, India
-              </li>
-            </ul>
-            <p className="resume-profile">
-              Software/Data Engineer with 2.5+ years of experience skilled in developing
-              analytics solutions leveraging Python, SQL, AWS Redshift and Apache Airflow.
-              Proven track record in developing data pipelines and integrating services via
-              REST APIs. Passionate about driving technological innovation while enhancing
-              security and privacy.
-            </p>
-          </div>
-        </section>
+      <main className="wrap resume" id="main">
+        <header className="resume-head">
+          <h1 className="resume-name">Nidish G</h1>
+          <ul className="resume-links">
+            <li>
+              <a href="mailto:resume@nidish.xyz">
+                <Mail size={14} aria-hidden="true" /> resume@nidish.xyz
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/NidPlays" rel="noopener">
+                <SiGithub size={14} aria-hidden="true" /> NidPlays
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/nidish-g/" rel="noopener">
+                <LinkedinIcon size={14} /> nidish-g
+              </a>
+            </li>
+            <li>
+              <MapPin size={14} aria-hidden="true" /> Bengaluru, India
+            </li>
+          </ul>
+          <p className="resume-profile">
+            Software/Data Engineer with 2.5+ years of experience building analytics
+            solutions with Python, SQL, AWS Redshift and Apache Airflow. Track record in
+            developing data pipelines and integrating services via REST APIs, now working on
+            Gen AI and agentic systems.
+          </p>
+        </header>
 
-        {/* ---------------------------- experience ---------------------------- */}
-        <section className="section">
-          <h2 className="cmd">
-            <span className="prompt">~$</span> git log ./experience
-          </h2>
-          <div className="xp-list">
+        <section className="resume-section">
+          <h2 className="resume-section-title">Experience</h2>
+          <ul className="xp-list">
             {experience.map((xp) => (
-              <article className="panel xp" key={xp.role}>
-                <header className="xp-head">
-                  <h3>
-                    <Briefcase size={16} aria-hidden="true" /> {xp.role}
-                  </h3>
-                  <p className="xp-meta">
-                    <span className="accent">{xp.org}</span>
-                    <span className="dim">
-                      {' '}
-                      · {xp.period} · {xp.location}
-                    </span>
-                  </p>
-                </header>
+              <li key={xp.role}>
+                <h3 className="xp-role">{xp.role}</h3>
+                <p className="xp-meta meta">
+                  <span className="xp-org">{xp.org}</span>
+                  <span>{xp.period}</span>
+                  <span>{xp.location}</span>
+                </p>
                 <ul className="xp-points">
                   {xp.points.map((point) => (
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
-        {/* ------------------------------ skills ------------------------------ */}
-        <section className="section">
-          <h2 className="cmd">
-            <span className="prompt">~$</span> ls ./skills
-          </h2>
-          <div className="panel">
-            <ul className="tags resume-tags">
-              {skills.map((skill) => (
-                <li key={skill}>{skill}</li>
-              ))}
-            </ul>
-          </div>
+        <section className="resume-section">
+          <h2 className="resume-section-title">Skills</h2>
+          <ul className="skill-list">
+            {skills.map((skill) => (
+              <li key={skill}>{skill}</li>
+            ))}
+          </ul>
         </section>
 
-        {/* ------------------------------ awards ------------------------------ */}
-        <section className="section">
-          <h2 className="cmd">
-            <span className="prompt">~$</span> cat awards.txt
-          </h2>
-          <div className="panel xp">
-            <h3>
-              <Award size={16} aria-hidden="true" /> Rockstar Rookie Award, Q1 2024
-            </h3>
-            <p className="xp-meta">
-              <span className="accent">Yara International</span>
-              <span className="dim"> · 2024/05</span>
+        <section className="resume-section">
+          <h2 className="resume-section-title">Awards</h2>
+          <div>
+            <h3 className="xp-role">Rockstar Rookie Award, Q1 2024</h3>
+            <p className="xp-meta meta">
+              <span className="xp-org">Yara International</span>
+              <span>2024/05</span>
             </p>
           </div>
         </section>
 
-        {/* ----------------------------- education ----------------------------- */}
-        <section className="section">
-          <h2 className="cmd">
-            <span className="prompt">~$</span> cat education.txt
-          </h2>
-          <div className="panel xp">
-            <h3>
-              <GraduationCap size={16} aria-hidden="true" /> Information Science &
-              Engineering
-            </h3>
-            <p className="xp-meta">
-              <span className="accent">RNS Institute of Technology, VTU</span>
-              <span className="dim"> · 2019/08 – 2023/07 · Bengaluru, India</span>
+        <section className="resume-section">
+          <h2 className="resume-section-title">Education</h2>
+          <div>
+            <h3 className="xp-role">Information Science &amp; Engineering</h3>
+            <p className="xp-meta meta">
+              <span className="xp-org">RNS Institute of Technology, VTU</span>
+              <span>2019/08 – 2023/07</span>
+              <span>Bengaluru, India</span>
+            </p>
+            <p className="meta">
+              Certificates:{' '}
+              <a href="https://www.linkedin.com/in/nidish-g/" rel="noopener">
+                see LinkedIn
+              </a>
             </p>
           </div>
-          <p className="dim resume-certs">
-            # certificates:{' '}
-            <a href="https://www.linkedin.com/in/nidish-g/" rel="noopener">
-              see LinkedIn
-            </a>
-          </p>
         </section>
       </main>
 
       <footer className="footer">
-        <div className="container">
-          <p>
-            <span className="prompt">~$</span> echo "© {new Date().getFullYear()} Nidish ·{' '}
-            <a href="/">portfolio</a> · <a href="/blog/">blog</a>"
+        <div className="wrap footer-inner">
+          <p className="meta">© {new Date().getFullYear()} Nidish G</p>
+          <p className="meta">
+            <a href="/">Portfolio</a> · <a href="/blog/">Blog</a>
           </p>
         </div>
       </footer>
