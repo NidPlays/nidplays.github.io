@@ -1,11 +1,11 @@
 # ============================================================================
-# nidish@blog:~$ — Zensical configuration
+# nidish — blog · Zensical configuration
 # Docs: https://zensical.org/docs/
 # ============================================================================
 
 [project]
-site_name = "nidish@blog:~$"
-site_description = "Nidish's blog — notes on code, design and everything in between."
+site_name = "Nidish"
+site_description = "Nidish's blog — notes on code, design, photography and everything in between."
 site_author = "Nidish"
 
 # Canonical URL of the deployed blog. Update the domain if it changes —
@@ -13,20 +13,20 @@ site_author = "Nidish"
 site_url = "https://portfolio.nidish.xyz/blog/"
 
 copyright = """
-Copyright &copy; 2026 Nidish &mdash; <a href="/">back to portfolio</a>
+Copyright &copy; 2026 Nidish &mdash; <a href="/">back to the portfolio</a>
 """
 
 nav = [
-  { "~$ cat welcome.md" = "index.md" },
-  { "posts" = [
-    { "hello, world" = "posts/hello-world.md" },
+  { "Welcome" = "index.md" },
+  { "Posts" = [
+    { "Hello, world" = "posts/hello-world.md" },
   ] },
-  { "← portfolio" = "/" },
-  { "resume" = "/resume/" },
+  { "Portfolio" = "/" },
+  { "Résumé" = "/resume/" },
 ]
 
 extra_css = ["stylesheets/extra.css"]
-extra_javascript = ["javascripts/giscus.js", "javascripts/header.js"]
+extra_javascript = ["javascripts/giscus.js"]
 
 [project.theme]
 language = "en"
@@ -52,13 +52,13 @@ features = [
 ]
 
 [project.theme.icon]
-logo = "lucide/terminal"
+logo = "lucide/cloud-sun"
 
 [project.theme.font]
-text = "JetBrains Mono"
+text = "Archivo"
 code = "JetBrains Mono"
 
-# Dark only — terminal blue. Custom colors live in stylesheets/extra.css.
+# Dark only. Custom colours live in stylesheets/extra.css.
 [[project.theme.palette]]
 scheme = "slate"
 primary = "custom"

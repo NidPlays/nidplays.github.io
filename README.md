@@ -1,12 +1,18 @@
 # nidish — portfolio + blog
 
-Terminal-themed personal site, dark with a blue accent. Live at
+Personal site built around the photographs: a near-black ground at almost zero
+chroma so the pictures carry all the colour, one apricot signal pulled out of
+the dusk frame, and Archivo worked across its width and weight axes. Live at
 <https://portfolio.nidish.xyz/>.
 
 | Path         | What                                         | Serves at |
 | ------------ | -------------------------------------------- | --------- |
 | `portfolio/` | React + Vite + TypeScript app (lucide icons) | `/`       |
 | `blog/`      | [Zensical](https://zensical.org) static blog | `/blog/`  |
+
+Both halves share one set of design tokens — `portfolio/src/index.css` is the
+source of truth, and `blog/docs/stylesheets/extra.css` mirrors it in hex for
+the Material theme. Change a colour in one, change it in the other.
 
 ## Development
 

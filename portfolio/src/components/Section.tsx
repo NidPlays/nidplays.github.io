@@ -3,19 +3,21 @@ import { useReveal } from '../hooks'
 
 interface SectionProps {
   id: string
-  command: string
+  title: string
+  lead?: ReactNode
   children: ReactNode
 }
 
-/** A page section headed by a terminal-style command line. */
-export default function Section({ id, command, children }: SectionProps) {
+/** A page section: hairline, title, optional lead, then its own structure. */
+export default function Section({ id, title, lead, children }: SectionProps) {
   const ref = useReveal<HTMLElement>()
 
   return (
-    <section id={id} className="section container reveal" ref={ref}>
-      <h2 className="cmd">
-        <span className="prompt">~$</span> {command}
-      </h2>
+    <section id={id} className="section wrap reveal" ref={ref}>
+      <div className="section-head">
+        <h2 className="section-title">{title}</h2>
+        {lead ? <p className="lead">{lead}</p> : null}
+      </div>
       {children}
     </section>
   )
