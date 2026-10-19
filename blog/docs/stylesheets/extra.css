@@ -236,3 +236,23 @@ body {
 .md-search__form {
   background-color: var(--nid-panel-2);
 }
+
+/* inline post videos */
+.nid-video {
+  margin: 1.5rem 0;
+}
+
+.nid-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--nid-border);
+  border-radius: 6px;
+  background: var(--nid-panel);
+}
+
+.nid-video figcaption {
+  margin-top: 0.5rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8em;
+}

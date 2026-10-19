@@ -19,6 +19,7 @@ Copyright &copy; 2026 Nidish &mdash; <a href="/">back to portfolio</a>
 nav = [
   { "~$ cat welcome.md" = "index.md" },
   { "posts" = [
+    { "from file manager to crm" = "posts/building-a-crm-on-cloudflare.md" },
     { "hello, world" = "posts/hello-world.md" },
   ] },
   { "← portfolio" = "/" },
